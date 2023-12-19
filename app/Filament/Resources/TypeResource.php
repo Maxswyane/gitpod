@@ -16,17 +16,14 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class TypeResource extends Resource
 {
     protected static ?string $model = Type::class;
-    protected static ?string $modelLabel = "Tipo";
-
+    protected static ?string $modelLabel = "Sabores";
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('id_produto')
-                    ->required()
-                    ->numeric(),
+            ->schema([
                 Forms\Components\Textarea::make('titulo')
                     ->required()
                     ->maxLength(65535)
@@ -34,6 +31,12 @@ class TypeResource extends Resource
                 Forms\Components\TextInput::make('descricao')
                     ->required()
                     ->maxLength(300),
+                Forms\Components\TextInput::make('valor')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\Select::make('id_produto')
+                    ->relationship('product', 'titulo')
+                    ->required()
             ]);
     }
 
@@ -41,20 +44,21 @@ class TypeResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('id_produto')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('descricao')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('product.titulo')
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('valor')
+                    ->numeric()
+                    ->sortable(),
             ])
             ->filters([
+                ])
                 //
-            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -63,19 +67,10 @@ class TypeResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTypes::route('/'),
-            'create' => Pages\CreateType::route('/create'),
-            'edit' => Pages\EditType::route('/{record}/edit'),
+            'index' => Pages\ManageTypes::route('/'),
         ];
     }
 }

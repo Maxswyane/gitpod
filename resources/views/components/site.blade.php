@@ -85,7 +85,7 @@
                 <a class="nav-link" href="#Dicas">Dicas</a>
             </li>
              </div>
-                <a href="http://localhost:8008/admin" class="nav-item nav-link">Logar</a>
+                <a href="https://8000-giovanegurg-laravelgitp-p9iq0vjc1kv.ws-us106.gitpod.io/admin" class="nav-item nav-link">Logar</a>
             </div>
         </div>
     </nav>

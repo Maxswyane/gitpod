@@ -16,8 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class PhotoResource extends Resource
 {
     protected static ?string $model = Photo::class;
-    protected static ?string $modelLabel = "Foto";
-
+    protected static ?string $modelLabel = "Photo";
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -30,10 +29,9 @@ class PhotoResource extends Resource
                 Forms\Components\TextInput::make('arquivo')
                     ->required()
                     ->maxLength(100),
-                Forms\Components\FileUpload::make('local_foto')
-                    ->image()
+                Forms\Components\TextInput::make('local_foto')
                     ->required()
-
+                    ->maxLength(200),
             ]);
     }
 
@@ -41,9 +39,6 @@ class PhotoResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('id_sabor')
                     ->numeric()
                     ->sortable(),
@@ -57,6 +52,7 @@ class PhotoResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -65,19 +61,10 @@ class PhotoResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPhotos::route('/'),
-            'create' => Pages\CreatePhoto::route('/create'),
-            'edit' => Pages\EditPhoto::route('/{record}/edit'),
+            'index' => Pages\ManagePhotos::route('/'),
         ];
     }
 }

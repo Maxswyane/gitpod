@@ -4,16 +4,16 @@ namespace App\Filament\Resources\TipResource\Pages;
 
 use App\Filament\Resources\TipResource;
 use Filament\Actions;
-use Filament\Resources\Pages\EditRecord;
+use Filament\Resources\Pages\ManageRecords;
 
-class EditTip extends EditRecord
+class ManageTips extends ManageRecords
 {
     protected static string $resource = TipResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\CreateAction::make(),
         ];
     }
 }

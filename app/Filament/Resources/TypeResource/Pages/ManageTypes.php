@@ -4,9 +4,9 @@ namespace App\Filament\Resources\TypeResource\Pages;
 
 use App\Filament\Resources\TypeResource;
 use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
+use Filament\Resources\Pages\ManageRecords;
 
-class ListTypes extends ListRecords
+class ManageTypes extends ManageRecords
 {
     protected static string $resource = TypeResource::class;
 

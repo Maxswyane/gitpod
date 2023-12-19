@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\About;
+use App\Models\Contact;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    
-    return view('site.index');
+   //$about = About::all();
+    $about = About::orderBy('id', 'desc')->first();
+    $sobre = $about->toArray();
+    //dd($sobre);
+    $contact = Contact::orderBy('id', 'desc')->first();
+    $contato = $contact->toArray();
+    //dd($contato);
+
+    return view('site.index', array('sobre'=> $sobre), array('contato'=> $contato));
 });

@@ -13,9 +13,9 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property string $instagram
  * @property string $youtube
- * @property int $endereco
+ * @property string $endereco
  * @property string $email
- * @property int $telefone
+ * @property string $telefone
  * @property int $id
  *
  * @package App\Models
@@ -23,14 +23,7 @@ use Illuminate\Database\Eloquent\Model;
 class Contact extends Model
 {
 	protected $table = 'contacts';
-	public $incrementing = false;
 	public $timestamps = false;
-
-	protected $casts = [
-		'endereco' => 'int',
-		'telefone' => 'int',
-		'id' => 'int'
-	];
 
 	protected $fillable = [
 		'instagram',

@@ -6,6 +6,7 @@ use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use Filament\Forms;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -16,8 +17,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
-
     protected static ?string $modelLabel = "Produto";
+
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -25,13 +26,19 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Textarea::make('descricao')
-                    ->required()
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('titulo')
-                    ->required()
-                    ->maxLength(100),
+                Grid::make()->schema([
+                    Forms\Components\TextInput::make('Título')
+                        ->required()
+                        ->maxLength(50),
+                    Forms\Components\TextInput::make('Valor')
+                        ->required()
+                        ->numeric(),
+                    Forms\Components\Textarea::make('Decrição')
+                        ->required()
+                        ->maxLength(65535)
+                        ->columnSpanFull(),
+                ])
+
 
             ]);
     }
@@ -40,13 +47,20 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('titulo')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('valor')
+                    ->numeric()
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
@@ -57,10 +71,19 @@ class ProductResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageProducts::route('/'),
+            'index' => Pages\ListProducts::route('/'),
+            'create' => Pages\CreateProduct::route('/create'),
+            'edit' => Pages\EditProduct::route('/{record}/edit'),
         ];
     }
 }

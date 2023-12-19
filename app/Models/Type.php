@@ -6,19 +6,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Type
- *
+ * 
  * @property int $id
  * @property string $titulo
  * @property string $descricao
  * @property int $id_produto
- *
+ * @property float $valor
+ * 
  * @property Product $product
  * @property Collection|Photo[] $photos
  *
@@ -26,21 +25,19 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Type extends Model
 {
-    use HasFactory;
-    protected $guarded = ['id'];
 	protected $table = 'types';
-	public $incrementing = false;
 	public $timestamps = false;
 
 	protected $casts = [
-		'id' => 'int',
-		'id_produto' => 'int'
+		'id_produto' => 'int',
+		'valor' => 'float'
 	];
 
 	protected $fillable = [
 		'titulo',
 		'descricao',
-		'id_produto'
+		'id_produto',
+		'valor'
 	];
 
 	public function product()

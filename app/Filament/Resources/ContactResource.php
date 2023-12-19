@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class ContactResource extends Resource
 {
     protected static ?string $model = Contact::class;
-    protected static ?string $modelLabel = "Contato";
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -24,7 +23,23 @@ class ContactResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('instagram')
+                    ->required()
+                    ->maxLength(300),
+                Forms\Components\TextInput::make('youtube')
+                    ->required()
+                    ->maxLength(300),
+                Forms\Components\TextInput::make('endereco')
+                    ->required()
+                    ->maxLength(100),
+                Forms\Components\TextInput::make('email')
+                    ->email()
+                    ->required()
+                    ->maxLength(300),
+                Forms\Components\TextInput::make('telefone')
+                    ->tel()
+                    ->required()
+                    ->maxLength(50),
             ]);
     }
 
@@ -32,13 +47,23 @@ class ContactResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('instagram')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('youtube')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('endereco')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('email')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('telefone')
+                    ->searchable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -46,20 +71,11 @@ class ContactResource extends Resource
                 ]),
             ]);
     }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
+    
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListContacts::route('/'),
-            'create' => Pages\CreateContact::route('/create'),
-            'edit' => Pages\EditContact::route('/{record}/edit'),
+            'index' => Pages\ManageContacts::route('/'),
         ];
-    }
+    }    
 }

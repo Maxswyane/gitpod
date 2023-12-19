@@ -16,8 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class TipResource extends Resource
 {
     protected static ?string $model = Tip::class;
-
-    protected static ?string $modelLabel = 'Dica';
+    protected static ?string $modelLabel = "Dica";
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -27,24 +26,20 @@ class TipResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('dicas')
                     ->required()
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
-                Forms\Components\FileUpload::make('img_fundo')
-                    ->image()
-                    ->required(),
-             ]);
+                    ->maxLength(300),
+                Forms\Components\TextInput::make('img_fundo')
+                    ->required()
+                    ->maxLength(200),
+            ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('dicas')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('img_fundo')
+                Tables\Columns\TextColumn::make('img_fundo')
                     ->searchable(),
             ])
             ->filters([
@@ -52,6 +47,7 @@ class TipResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -60,19 +56,10 @@ class TipResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTips::route('/'),
-            'create' => Pages\CreateTip::route('/create'),
-            'edit' => Pages\EditTip::route('/{record}/edit'),
+            'index' => Pages\ManageTips::route('/'),
         ];
     }
 }

@@ -4,9 +4,9 @@ namespace App\Filament\Resources\PhotoResource\Pages;
 
 use App\Filament\Resources\PhotoResource;
 use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
+use Filament\Resources\Pages\ManageRecords;
 
-class ListPhotos extends ListRecords
+class ManagePhotos extends ManageRecords
 {
     protected static string $resource = PhotoResource::class;
 

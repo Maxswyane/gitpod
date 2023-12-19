@@ -17,14 +17,14 @@ class AboutResource extends Resource
 {
     protected static ?string $model = About::class;
 
-    protected static ?string $modelLabel = 'Quem Somos';
+    protected static ?string $modelLabel = "Sobre";
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Textarea::make('quem_somos')
+                Forms\Components\RichEditor::make('quem_somos')
                     ->required()
                     ->maxLength(65535)
                     ->columnSpanFull(),
@@ -35,7 +35,6 @@ class AboutResource extends Resource
                 Forms\Components\FileUpload::make('img_esquerda')
                     ->image()
                     ->required(),
-
             ]);
     }
 
@@ -43,16 +42,20 @@ class AboutResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\ImageColumn::make('img_esquerda'),
+                Tables\Columns\TextColumn::make('quem_somos')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('o_que_vendemos')
+                    ->searchable(),
+                Tables\Columns\ImageColumn::make('img_esquerda')
+                    ->circular()
+                    ->searchable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -61,19 +64,10 @@ class AboutResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAbouts::route('/'),
-            'create' => Pages\CreateAbout::route('/create'),
-            'edit' => Pages\EditAbout::route('/{record}/edit'),
+            'index' => Pages\ManageAbouts::route('/'),
         ];
     }
 }

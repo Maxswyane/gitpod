@@ -39,7 +39,7 @@
                     <i class="bi bi-instagram fs-1 text-primary me-3"></i>
                     <div class="text-start">
                         <h6 class="text-uppercase mb-1" >Instagram</h6>
-                        <span>@doces.thaysa</span>
+                        <span>{{$contato['instagram']}}</span>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                     <i class="bi bi-phone-vibrate fs-1 text-primary me-3"></i>
                     <div class="text-start">
                         <h6 class="text-uppercase mb-1">Contato</h6>
-                        <span>84 99925-3413</span>
+                        <span>{{$contato['telefone']}}</span>
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                 <a class="nav-link" href="#Dicas">Dicas</a>
             </li>
              </div>
-                <a href="https://8000-giovanegurg-laravelgitp-p9iq0vjc1kv.ws-us105.gitpod.io/admin/login" class="nav-item nav-link">Logar</a>
+                <a href="https://8000-giovanegurg-laravelgitp-p9iq0vjc1kv.ws-us106.gitpod.io/admin" class="nav-item nav-link">Logar</a>
             </div>
         </div>
     </nav>
@@ -144,8 +144,8 @@
                     </div>
                 </div>
                 <div class="col-lg-6 pb-5">
-                    <h4 class="mb-4">Tempor erat elitr rebum clita. Diam dolor diam ipsum erat lorem sed stet labore lorem sit clita duo</h4>
-                    <p class="mb-5">Tempor erat elitr at rebum at at clita. Diam dolor diam ipsum et tempor sit. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor eirmod magna dolore erat amet magna</p>
+                    <h4 class="mb-4">{{ $sobre['quem_somos'] }}</h4>
+                    <p class="mb-5">{{$sobre['o_que_vendemos']}}</p>
                     <div class="row g-5">
                         <div class="col-sm-6">
                             <div class="d-flex align-items-center justify-content-center bg-primary border-inner mb-4" style="width: 90px; height: 90px;">
@@ -741,7 +741,7 @@
                             <br>
                             <br>
                             <br>
-                                <p class="mb-0"><a class="bi bi-geo-alt text-primary me-2"></a>000 Rua dos doces, Mossoró, RN <a class="bi bi bi-envelope text-primary me-2"></a>teste@example.com <br><a class="bi bi-instagram text-primary me-2"> </a>@doces.thaysa <a class="bi bi-telephone text-primary me-2"></a>84 99925-3413</p>
+                                <p class="mb-0"><a class="bi bi-geo-alt text-primary me-2"></a>{{$contato['endereco']}} <a class="bi bi bi-envelope text-primary me-2"></a>{{$contato['email']}} <br><a class="bi bi-instagram text-primary me-2"> </a>{{$contato['instagram']}} <a class="bi bi-telephone text-primary me-2"></a>{{$contato['telefone']}}</p>
 
 
 
@@ -775,7 +775,7 @@
     </div>
     <div class="container-fluid text-secondary py-4" style="background: #111111;">
         <div class="container text-center">
-            <p class="mb-0">&copy; <a class="text-white border-bottom" href="#">Copyright 85</a>. Todos os direitos reservados a NickTecnologia
+
     </div>
     <!-- Footer End -->
 
