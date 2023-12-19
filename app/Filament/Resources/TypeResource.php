@@ -23,7 +23,6 @@ class TypeResource extends Resource
     {
         return $form
             ->schema([
-            ->schema([
                 Forms\Components\Textarea::make('titulo')
                     ->required()
                     ->maxLength(65535)
